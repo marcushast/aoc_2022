@@ -1,6 +1,6 @@
 object Day04 {
 
-    fun process1(data: String): List<Pair<IntRange, IntRange>> =
+    private fun process1(data: String): List<Pair<IntRange, IntRange>> =
         data.lines().map {
             val pair = it.split(",")
 
@@ -12,7 +12,7 @@ object Day04 {
         return IntRange(index[0].toInt(), index[1].toInt())
     }
 
-    fun work1(data: List<Pair<IntRange, IntRange>>) {
+    private fun work1(data: List<Pair<IntRange, IntRange>>) {
         val containedPairs = data.filter {
             val first = it.first.toSet()
             val second = it.second.toSet()
@@ -24,7 +24,7 @@ object Day04 {
         println("Number of pairs fully contained by one: ${containedPairs.size}")
     }
 
-    fun work2(data: List<Pair<IntRange, IntRange>>) {
+    private fun work2(data: List<Pair<IntRange, IntRange>>) {
         val containedPairs = data.filter {
             val first = it.first.toSet()
             val second = it.second.toSet()
