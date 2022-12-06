@@ -1,4 +1,57 @@
 object Day03 {
+
+    fun process1(data: String): List<Pair<String, String>> {
+        return data.lines().map {
+            val middle = it.length/2
+
+            Pair(it.substring(0, middle), it.substring(middle))
+        }
+    }
+
+    fun work1(data: List<Pair<String, String>>) {
+        val commonItems: List<Char> = data.map {
+            val first = it.first.toSet()
+            val second = it.second.toSet()
+
+            first.intersect(second).first()
+        }
+
+        val commonItemPrio = commonItems.map {
+            itemCharToPrio(it)
+        }
+
+        println("Sum of all common items prio value is ${commonItemPrio.sum()}")
+    }
+
+    fun process2(data: String): List<List<String>> = data.lines().windowed(3, 3)
+
+    fun work2(data: List<List<String>>) {
+        val commonItems: List<Char> = data.map {
+            val first = it[0].toSet()
+            val second = it[1].toSet()
+            val third = it[2].toSet()
+
+            first.intersect(second).intersect(third).first()
+        }
+
+        val commonItemPrio = commonItems.map {
+            itemCharToPrio(it)
+        }
+
+        println("Sum of all common items prio value is ${commonItemPrio.sum()}")
+    }
+
+    fun itemCharToPrio(c: Char): Int {
+        val cInt = c.toInt()
+        val lcInt = 'a'.toInt()
+        val ucInt = 'A'.toInt()
+
+        return when {
+            cInt > lcInt -> cInt-lcInt+1
+            else -> cInt-ucInt+27
+        }
+    }
+
     val data1 = """
         vJrwpWtwJgWrhcsFMMfFFhFp
         jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
@@ -310,88 +363,4 @@ object Day03 {
         VrVMdbCrrBTjCMQQtMwQNSqMQW
         VCBHdJHdvrrFsbsdrBJTdTzZcpmZGDGPlmzmlccFDZDn
     """.trimIndent()
-
-    fun process1(data: String): List<Pair<String, String>> {
-        return data.lines().map {
-            val middle = it.length/2
-
-            Pair(it.substring(0, middle), it.substring(middle))
-        }
-    }
-
-    fun work1(data: List<Pair<String, String>>) {
-        val commonItems: List<Char> = data.map {
-            val first = it.first.toSet()
-            val second = it.second.toSet()
-
-            first.intersect(second).first()
-
-//            try {
-//                first.intersect(second).first()
-//            } catch (e: Exception) {
-//                println("Oooops at $it")
-//                '1'
-//            }
-        }
-
-//        commonItems.forEach {
-//            println("$it prio ${itemCharToPrio(it)}")
-//        }
-
-
-        val commonItemPrio = commonItems.map {
-            itemCharToPrio(it)
-        }
-
-//        println("The following items are in both compartments for the test data: ")
-//        commonItems.forEach {
-//            println("$it")
-//        }
-        println("Sum of all common items prio value is ${commonItemPrio.sum()}")
-    }
-
-
-    fun process2(data: String): List<List<String>> = data.lines().windowed(3, 3)
-
-    fun work2(data: List<List<String>>) {
-        val commonItems: List<Char> = data.map {
-            val first = it[0].toSet()
-            val second = it[1].toSet()
-            val third = it[2].toSet()
-
-//            first.intersect(second).intersect(third).first()
-
-            try {
-                first.intersect(second).intersect(third).first()
-            } catch (e: Exception) {
-                println("Oooops at $it")
-                '1'
-            }
-        }
-
-        commonItems.forEach {
-            println("$it prio ${itemCharToPrio(it)}")
-        }
-
-        val commonItemPrio = commonItems.map {
-            itemCharToPrio(it)
-        }
-
-//        println("The following items are in both compartments for the test data: ")
-//        commonItems.forEach {
-//            println("$it")
-//        }
-        println("Sum of all common items prio value is ${commonItemPrio.sum()}")
-    }
-
-    fun itemCharToPrio(c: Char): Int {
-        val cInt = c.toInt()
-        val lcInt = 'a'.toInt()
-        val ucInt = 'A'.toInt()
-
-        return when {
-            cInt > lcInt -> cInt-lcInt+1
-            else -> cInt-ucInt+27
-        }
-    }
 }

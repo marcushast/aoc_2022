@@ -1,6 +1,46 @@
 object Day01 {
 
-val data1 = """
+    fun process(data: String): List<List<Int>> {
+
+        var elf = mutableListOf<Int>()
+
+        val result = mutableListOf<List<Int>>()
+
+        data.lines().forEach {
+
+            if (it.isNotBlank()) elf.add(it.toInt())
+            else {
+                result.add(elf)
+                elf = mutableListOf()
+            }
+        }
+
+        if (data.lines().last().isNotBlank()) result.add(elf)
+
+        return result
+
+    }
+
+    fun work1(data: List<List<Int>>) {
+        val calories = data.map {
+            it.sum()
+        }
+
+        println("Elf with most calories has ${calories.max()}")
+    }
+
+    fun work2(data: List<List<Int>>) {
+        val calories = data.map {
+            it.sum()
+        }
+
+        val topThree = calories.sorted().reversed().take(3)
+
+        println("Top three elves have ${topThree.sum()}")
+    }
+
+
+    val data1 = """
     1000
     2000
     3000
@@ -2274,43 +2314,4 @@ val data1 = """
 1510
 5279
 """.trimIndent()
-
-    fun process(data: String): List<List<Int>> {
-
-        var elf = mutableListOf<Int>()
-
-        val result = mutableListOf<List<Int>>()
-
-        data.lines().forEach {
-
-            if (it.isNotBlank()) elf.add(it.toInt())
-            else {
-                result.add(elf)
-                elf = mutableListOf()
-            }
-        }
-
-        if (data.lines().last().isNotBlank()) result.add(elf)
-
-        return result
-
-    }
-
-    fun work1(data: List<List<Int>>) {
-        val calories = data.map {
-            it.sum()
-        }
-
-        println("Elf with most calories has ${calories.max()}")
-    }
-
-    fun work2(data: List<List<Int>>) {
-        val calories = data.map {
-            it.sum()
-        }
-
-        val topThree = calories.sorted().reversed().take(3)
-
-        println("Top three elves have ${topThree.sum()}")
-    }
 }

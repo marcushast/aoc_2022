@@ -1,4 +1,81 @@
 object Day02 {
+
+    fun process1(data: String): List<Pair<Int, Int>> {
+        return data.lines().map {
+            val round = it.split(" ")
+
+            val p1: Int = abcToPoint(round[0])
+
+            val p2: Int = when(round[1]) {
+                "X" -> 1
+                "Y" -> 2
+                "Z" -> 3
+                else -> 0
+            }
+
+            Pair(p1, p2)
+        }
+    }
+
+    private fun abcToPoint(abc: String) = when (abc) {
+        "A" -> 1
+        "B" -> 2
+        "C" -> 3
+        else -> 0
+    }
+
+    fun work1(data: List<Pair<Int, Int>>) {
+        val points = data.map {
+            val score = when {
+                it.first == it.second -> 3
+                it.first == 1 && it.second == 2 -> 6
+                it.first == 2 && it.second == 3 -> 6
+                it.first == 3 && it.second == 1 -> 6
+                else -> 0
+            }
+
+            score + it.second
+        }
+
+        println("I got total ${points.sum()}")
+    }
+
+
+    fun process2(data: String): List<Pair<Int, Int>> {
+        return data.lines().map {
+            val round = it.split(" ")
+
+            val p1: Int = abcToPoint(round[0])
+
+            val p2: Int = when(round[1]) {
+                "X" -> pointToLose(p1)
+                "Y" -> pointToDraw(p1)
+                "Z" -> pointToWin(p1)
+                else -> 0
+            }
+
+            Pair(p1, p2)
+        }
+    }
+
+    private fun pointToLose(p: Int): Int =
+        when(p) {
+            1 -> 3
+            2 -> 1
+            3 -> 2
+            else -> 0
+        }
+
+    private fun pointToDraw(p: Int): Int = p
+
+    private fun pointToWin(p: Int): Int =
+        when(p) {
+            1 -> 2
+            2 -> 3
+            3 -> 1
+            else -> 0
+        }
+
     val data1 = """
         A Y
         B X
@@ -2507,85 +2584,4 @@ object Day02 {
         A Z
         A Z
     """.trimIndent()
-
-    fun process1(data: String): List<Pair<Int, Int>> {
-        return data.lines().map {
-            val round = it.split(" ")
-
-            val p1: Int = abcToPoint(round[0])
-
-            val p2: Int = when(round[1]) {
-                "X" -> 1
-                "Y" -> 2
-                "Z" -> 3
-                else -> 0
-            }
-
-            Pair(p1, p2)
-        }
-    }
-
-    private fun abcToPoint(abc: String) = when (abc) {
-        "A" -> 1
-        "B" -> 2
-        "C" -> 3
-        else -> 0
-    }
-
-    fun work1(data: List<Pair<Int, Int>>) {
-        val points = data.map {
-            val score = when {
-                it.first == it.second -> 3
-                it.first == 1 && it.second == 2 -> 6
-                it.first == 2 && it.second == 3 -> 6
-                it.first == 3 && it.second == 1 -> 6
-                else -> 0
-            }
-
-            score + it.second
-        }
-
-        println("I got total ${points.sum()}")
-    }
-
-
-    fun process2(data: String): List<Pair<Int, Int>> {
-        return data.lines().map {
-            val round = it.split(" ")
-
-            val p1: Int = abcToPoint(round[0])
-
-            val p2: Int = when(round[1]) {
-                "X" -> pointToLose(p1)
-                "Y" -> pointToDraw(p1)
-                "Z" -> pointToWin(p1)
-                else -> 0
-            }
-
-            Pair(p1, p2)
-        }
-    }
-
-    private fun pointToLose(p: Int): Int =
-        when(p) {
-            1 -> 3
-            2 -> 1
-            3 -> 2
-            else -> 0
-        }
-
-    private fun pointToDraw(p: Int): Int = p
-
-    private fun pointToWin(p: Int): Int =
-        when(p) {
-            1 -> 2
-            2 -> 3
-            3 -> 1
-            else -> 0
-        }
-
-
-    fun work2(data: List<Int>) {
-        println("I got total ${data.sum()}")
-    }
 }
